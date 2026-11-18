@@ -3,39 +3,53 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>model-viewer 練習</title>
-  <!-- model-viewer 本体を読み込む -->
+  <title>鹿児島 地形AR</title>
   <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
   <style>
-    body { margin: 0; font-family: sans-serif; background: #f4f4f4; }
-    h1 { font-size: 18px; padding: 12px 16px; margin: 0; }
-    model-viewer { width: 100%; height: 70vh; background: #ffffff; }
-    /* 自分で作る「ARで見る」ボタン */
+    body { margin: 0; font-family: sans-serif; background: #eef2f5; color: #222; }
+    header { padding: 12px 16px; }
+    h1 { font-size: 20px; margin: 0 0 4px; }
+    header p { margin: 0; font-size: 13px; color: #555; }
+    model-viewer { width: 100%; height: 72vh; background: #ffffff; }
+    .hotspot { border: none; background: none; padding: 0; }
+    .label {
+      background: rgba(255, 255, 255, 0.9); border-radius: 6px; padding: 2px 8px;
+      font-size: 12px; white-space: nowrap; box-shadow: 0 1px 3px rgba(0,0,0,.3);
+      transform: translateY(-14px);
+    }
     #ar-button {
       position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%);
       padding: 12px 24px; border: none; border-radius: 24px;
       background: #1a73e8; color: #fff; font-size: 16px;
     }
-    p { padding: 0 16px; font-size: 14px; color: #555; }
+    footer { padding: 8px 16px 24px; font-size: 12px; color: #666; }
   </style>
 </head>
 <body>
-  <h1>model-viewer 練習</h1>
+  <header>
+    <h1>鹿児島 地形AR</h1>
+    <p>鹿児島県本土の地形を、机の上に置ける立体模型にしました（高さは4.0倍に強調）。</p>
+  </header>
 
   <model-viewer
-    src="https://modelviewer.dev/shared-assets/models/Astronaut.glb"
-    ios-src="https://modelviewer.dev/shared-assets/models/Astronaut.usdz"
-    alt="宇宙飛行士の3Dモデル"
+    src="kagoshima.glb"
+    alt="鹿児島県本土の立体地形模型"
     ar
     ar-modes="webxr scene-viewer quick-look"
     ar-placement="floor"
     camera-controls
-    auto-rotate
-    shadow-intensity="2">
-    <!-- slot="ar-button" を付けると、標準のARボタンをこのボタンに差し替えられる -->
-    <button slot="ar-button" id="ar-button">ARで見る</button>
+    camera-orbit="0deg 55deg auto"
+    shadow-intensity="1">
+    <button class="hotspot" slot="hotspot-1" data-position="-0.0302m 0.0347m 0.0222m" data-normal="0m 1m 0m"><div class="label">桜島</div></button>
+    <button class="hotspot" slot="hotspot-2" data-position="-0.0874m 0.0320m 0.2329m" data-normal="0m 1m 0m"><div class="label">開聞岳</div></button>
+    <button class="hotspot" slot="hotspot-3" data-position="0.0604m 0.0462m -0.1600m" data-normal="0m 1m 0m"><div class="label">韓国岳（霧島）</div></button>
+    <button class="hotspot" slot="hotspot-4" data-position="-0.0746m 0.0153m 0.0165m" data-normal="0m 1m 0m"><div class="label">鹿児島市</div></button>
+    <button class="hotspot" slot="hotspot-5" data-position="-0.0284m 0.0155m 0.3293m" data-normal="0m 1m 0m"><div class="label">佐多岬</div></button>
+    <button slot="ar-button" id="ar-button">机に置いてみる</button>
   </model-viewer>
 
-  <p>PCではドラッグで回転、ホイールで拡大できます。スマホでは「ARで見る」を押すと、床の上にモデルが置けます。</p>
+  <footer>
+    出典：国土地理院 標高タイル（<a href="https://maps.gsi.go.jp/development/ichiran.html">地理院タイル一覧</a>）を加工して作成
+  </footer>
 </body>
 </html>
